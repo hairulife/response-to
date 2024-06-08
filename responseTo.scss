@@ -1,32 +1,33 @@
 $breakpoints: (
-  xs1: (
-    min: 0px,
-    max: 767px
-  ),
   xs: (
-    max: 767px
+    max: 767px,
   ),
   sm: (
-    min: 768px
+    min: 768px,
+    max: 991px,
   ),
   md: (
-    min: 992px
+    min: 992px,
+    max: 1199px,
   ),
   lg: (
-    min: 1200px
+    min: 1200px,
+    max: 1919px,
   ),
   xl: (
-    min: 1920px
-  )
+    min: 1920px,
+  ),
 );
 
 @mixin responseTo($breakpoint, $breakpoints: $breakpoints) {
   // 判断是否存在断点
   @if not map-has-key($breakpoints, $breakpoint) {
-    @error "不存在断点“”，请检查";
+    @error "不存在断点“#{$breakpoint}”，请检查";
   }
 
-  @if map-has-key($breakpoints, $breakpoint, min) and map-has-key($breakpoints, $breakpoint, max) {
+  @if map-has-key($breakpoints, $breakpoint, min) and
+    map-has-key($breakpoints, $breakpoint, max)
+  {
     // 同时存在最小值和最大值
     @media (min-width: map-get($breakpoints, $breakpoint, min)) and (max-width: map-get($breakpoints, $breakpoint, max)) {
       @content;
@@ -46,10 +47,18 @@ $breakpoints: (
 
 body {
   @include responseTo(xs) {
-    margin: 0;
+    background-color: red;
+  }
+
+  @include responseTo(sm) {
+    background-color: green;
+  }
+
+  @include responseTo(lg) {
+    background-color: blue;
   }
 
   @include responseTo(xl) {
-    margin: 20px;
+    background-color: yellow;
   }
 }
